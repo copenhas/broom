@@ -1,0 +1,11 @@
+{
+  "author": "Sean Copenhaver <sean.copenhaver@gmail.com>",
+  "name": "dust-compile",
+  "description": "Precompiled/packager for your favorite async' template system",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "github.com/copenhas/dust-compile.git"
+  },
+  "bin": "bin/dust-compile"
+}
