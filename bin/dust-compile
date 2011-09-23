@@ -1,4 +1,5 @@
-﻿/* vim: set filetype=javascript: */
+#!/usr/bin/env node
+
 /*jslint node: true */
 
 var dust = require('dust'),
@@ -9,21 +10,35 @@ var dust = require('dust'),
 
 var src_dir = argv[2], 
     dust_file = (function () {
+        //try to locate the dust module and grab the core code
         var mod = require.paths
                          .filter(function (p) {
                             return path.basename(p) === 'dust';
                          })[0];
-        if (!mod) throw { message: 'Could not find dust module' };
+        if (!mod) throw new Error('Could not find dust module');
 
         return path.join(mod, 'lib/dust.js');
     })(),
-    dust_lib = fs.readFileSync(dust_file, 'utf-8');
+    dust_lib = fs.readFileSync(dust_file, 'utf-8'),
+    config_path = path.join(src_dir, 'config.js'),
     config = (function () {
-        var config_path = path.join(src_dir, 'config.js');
+        //readme has an example config
+        if (!path.existsSync(config_path)) {
+            return null;
+        }
         var settings = fs.readFileSync(config_path, 'utf-8');
         return JSON.parse(settings);
     })(),
-    root = config.root || '';
+    root = '';
+
+if (!config) {
+    console.log("Could not load config: " + config_path);
+    return;
+}
+
+root = config.root || '';
+
+console.log("Starting compile");
 
 for(var target in config.targets) { 
 
@@ -54,9 +69,7 @@ for(var target in config.targets) {
 
 exec('growlnotify -m "Templates Compiled" Dust',
      function (err, stdout, stderr) {
-        if (err) {
-            throw err;
-        }
+         //ignore if growl didn't work
      });
 
 console.log("Templates Compiled");
