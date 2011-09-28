@@ -1,0 +1,40 @@
+#!/usr/bin/env node
+
+/* vim: set ft=javascript: */
+/*jslint node: true */
+
+var fs = require('fs'),
+    path = require('path'),
+    argv = process.argv;
+
+var clean = require('../lib/clean').clean;
+    packager = require('../lib/package')['package'];
+
+var src_dir = argv[2] || '.', 
+    config_path = path.join(src_dir, 'broom.json'),
+    config = (function () {
+        console.log("Using config '" + config_path + "'");
+        var settings = fs.readFileSync(config_path, 'utf-8');
+        return JSON.parse(settings);
+    })(),
+    root = config.root;
+
+console.log("Sweeping in '" + src_dir + "'");
+process.chdir(src_dir);
+process.config = config;
+
+clean(config.targets);
+
+//package all configured targets
+for(var target in config.targets) { 
+    var options = config.targets[target],
+        file = path.join(src_dir, root, target),
+        output = fs.createWriteStream(file);
+
+    console.log("Gathering '" + target + "'");
+    packager(options.templates, options.bundle, output);
+
+    output.destroySoon();
+}
+
+console.log("Swept");

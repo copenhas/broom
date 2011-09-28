@@ -1,7 +1,7 @@
 {
   "author": "Sean Copenhaver <sean.copenhaver@gmail.com>",
-  "name": "dust-compile",
-  "description": "Precompiled/packager for your favorite async' template system",
+  "name": "broom",
+  "description": "Manage all that dust, regardless of if it's inside or outside.",
   "version": "0.1.0",
   "repository": {
     "type": "git",
@@ -10,5 +10,5 @@
   "dependencies": [
     "dust"
   ],
-  "bin": "bin/dust-compile"
+  "bin": "bin/broom"
 }

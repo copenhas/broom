@@ -1,25 +1,28 @@
-dust-compile
+broom
 ============
 
-Currently just a basic utility to precompile and package dust templates into various targets.
+Helps you stay on top of all that dust, regardless if it's inside or outside.
 
-You run the utlity pointing at a directory containing your dust templates and a config.js. The config.js powers the rest. That's just the convention I am working with and the code is very simple. 
+broom is a dust.js template precompiler and package. I was working on a CouchApp and wanted some template
+rendering on the server side and some on the client. So this is a utility that helped me keep up with that.
 
 Installation
 ------------
 Don't have this published yet but if you want to grab it and play around:
 
-    $ git clone git://github.com/copenhas/dust-compile
-    $ cd ./dust-compile
+    $ git clone git://github.com/copenhas/broom
+    $ cd ./broom
     $ npm link
 
-Or you can simple d/l the dust-compile script and place it somewhere in the path.
+Then use npm like normal in a project: `npm install broom`
 
 Usage
 -----
-   dust-compile path/to/dust/template/directory
+   broom path/to/templates
 
-Annotated example config.js
+Command assumes a broom.json file will be in that directory.
+
+Annotated example broom.json
 ---------
     {
         //root directory to use for the targets
@@ -36,11 +39,9 @@ Annotated example config.js
                     "overview.dust",
                     "title.dust",
                     "map.dust",
-                    "overview.dust",
-                    "floorplan.dust"
                 ]
             },
-            //you can have multiple
+            //you can have multiple targets
             "js/templates.js" : {
                 "templates" : [
                     "cityinfo.dust",
