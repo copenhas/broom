@@ -14,13 +14,18 @@ Don't have this published yet but if you want to grab it and play around:
     $ cd ./broom
     $ npm link
 
-Then use npm like normal in a project: `npm install broom`
+Then use npm link in a project to "link install": `npm link broom`
 
 Usage
 -----
-   broom path/to/templates
+Assuming broom is in your path:
 
-Command assumes a broom.json file will be in that directory.
+    broom path/to/templates
+
+Command assumes a broom.json file will be in that directory. Targets do not have to exist but the directory they
+are to be written to does. If the target already exists they will be deleted first.
+
+Bundling dust.js core currently doesn't work. I seemed to have broken it recently...
 
 Annotated example broom.json
 ---------
@@ -50,4 +55,20 @@ Annotated example broom.json
             }
         }
     }
+    
+Example Directory
 
+    project/
+      db/
+        lib/
+          templates.js #first target in config
+      dust/
+        broom.config
+        cityinfo.dust
+        main.dust
+        map.dust
+        maplayers.dust
+        overview.dust
+        title.dust
+      js/
+        templates.js #second target
