@@ -9,9 +9,11 @@ exports.compile = function (template, out) {
 
     var extname = path.extname(template);
 
-    console.log("Compiling '" + template + "'");
+    fs.readFile(template, 'utf-8', function (err, contents) {
+        console.log("Compiling '" + template + "'");
 
-    fs.readFile(template, 'utf-8', function (contents) {
+        if (err) throw err;
+
         var filename = path.basename(template, extname),
             compiled;
 

@@ -28,13 +28,13 @@ clean(config.targets);
 //package all configured targets
 for(var target in config.targets) { 
     var options = config.targets[target],
-        file = path.join(src_dir, root, target),
+        file = path.join(root, target),
         output = fs.createWriteStream(file);
 
     console.log("Gathering '" + target + "'");
     packager(options.templates, options.bundle, output);
-
-    output.destroySoon();
 }
 
-console.log("Swept");
+process.on('exit', function () {
+    console.log("Swept");
+});
