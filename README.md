@@ -28,8 +28,6 @@ Assuming broom is in your path:
 Command assumes a broom.json file will be in that directory. Targets do not have to exist but the directory they
 are to be written to does. If the target already exists they will be deleted first.
 
-Bundling dust.js core currently doesn't work. I seemed to have broken it recently...
-
 Annotated example broom.json
 ---------
     {
