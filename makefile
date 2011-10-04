@@ -7,7 +7,7 @@ lint:
 	jshint src/**/*.js
 
 test: 
-	node_modules/.bin/vows specs/* --spec
+	node_modules/.bin/vows spec/**/*.js --spec
 
 tags:
 	jsctags src/lib/

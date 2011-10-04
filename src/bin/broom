@@ -32,7 +32,12 @@ for(var target in config.targets) {
         output = fs.createWriteStream(file);
 
     console.log("Gathering '" + target + "'");
-    packager(options.templates, options.bundle, output);
+    packager(options.templates, options.bundle, output, 
+             function (err, stream) {
+                if (err) throw err;
+
+                console.log("'" + target + "' is piled up");    
+             });
 }
 
 process.on('exit', function () {
